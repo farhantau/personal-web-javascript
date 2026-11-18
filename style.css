@@ -1,0 +1,180 @@
+/* PENGATURAN BODY */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #292929;
+    min-height: 100vh;
+
+    background-image: url("background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* NAVBAR */
+.navbar {
+    padding: 5px 0;
+}
+
+.navbar-brand {
+    font-size: 33px;
+    color: cornsilk;
+  font-family: "Alfa Slab One", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.navbar-link {
+    margin-left: 10px;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: bold;
+    color:#ffffff;
+}
+
+/* MAIN CONTENT */
+.main-content {
+    min-height: 660px;
+    padding-top: 55px;
+    padding-bottom: 60px;
+}
+
+/* FORM CARD */
+.form-card {
+    border: none;
+    background-color: #f8f9fa;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+
+.card-header {
+    padding: 17px 20px;
+}
+
+.card-body {
+    padding: 25px;
+}
+
+/* LABEL FORM */
+.form-label {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* INPUT */
+.form-control {
+    padding: 10px 13px;
+    border-radius: 7px;
+}
+
+/* BUTTON */
+.btn-primary {
+    padding: 12px;
+    font-weight: 600;
+}
+
+/* MESSAGE CONTAINER */
+.order-container {
+    background-color: #f8f9fa;
+    border: 2px solid #dee2e6;
+    border-radius: 7px;
+    padding: 20px;
+    min-height: 432px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+}
+
+.order-title {
+    color: #6c757d;
+    font-weight: bold;
+}
+
+/* MESSAGE CARD */
+.order-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 18px;
+    height: 100%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+}
+
+/* ICON DAN NAMA */
+.order-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    color: brown;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.order-header i {
+    font-size: 27px;
+}
+
+/* ISI PESAN */
+.order-text {
+    margin-top: 12px;
+    margin-bottom: 0;
+    font-size: 16px;
+    overflow-wrap: anywhere;
+}
+
+#totalOrder {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* NOMOR ANTRIAN */
+.queue-number {
+    margin-left: auto;
+    background-color: #6c757d;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+/* FOOTER */
+footer {
+    background-color: #212529;
+    color: white;
+    text-align: center;
+    padding: 44px 5px;
+}
+
+footer h5 {
+    margin-bottom: 25px;
+}
+
+/* SOCIAL MEDIA */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 25px;
+}
+
+.social-icons a {
+    color: white;
+    font-size: 27px;
+    transition: 0.3s;
+}
+
+.social-icons a:hover {
+    color: #0d6efd;
+}
+
+/* COPYRIGHT */
+footer p {
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+/* EMPTY MESSAGE */
+.empty-message {
+    color: #888;
+    text-align: center;
+    padding: 25px;
+}
