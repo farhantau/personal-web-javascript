@@ -61,6 +61,12 @@ body {
     font-size: 16px;
 }
 
+/* INPUT */
+.form-control {
+    padding: 10px 13px;
+    border-radius: 7px;
+}
+
 /* BUTTON */
 .btn-primary {
     padding: 12px;
@@ -171,29 +177,4 @@ footer p {
     color: #888;
     text-align: center;
     padding: 25px;
-}
-
-.selected-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    background-color: #ffffff;
-    border: 1px solid #dee2e6;
-    border-radius: 7px;
-    padding: 8px 12px;
-    margin-bottom: 8px;
-}
-
-/* Isi menu di kartu order */
-.order-items {
-    margin: 12px 0 0;
-    padding-left: 18px;
-    font-size: 15px;
-}
-
-.order-total {
-    margin: 10px 0 0;
-    font-weight: bold;
-    color: brown;
 }

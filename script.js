@@ -1,275 +1,118 @@
-// MENGAMBIL ELEMEN HTML
+//1. MENGAMBIL ELEMEN HTML
+
 const form = document.getElementById("csnameform");
 
 const inputNama = document.getElementById("nama");
 
-const menuSelect = document.getElementById("menuSelect");
+const inputPesan = document.getElementById("pesan");
 
-const addMenuBtn = document.getElementById("addMenuBtn");
+const messageList = document.getElementById("orderList");
 
-const selectedMenuList = document.getElementById("selectedMenuList");
+//2. NOMOR ANTRIAN PERTAMA
+let nomorAntrian = 1;
 
-const selectedTotal = document.getElementById("selectedTotal");
+//3. MENANGKAP EVENT SUBMIT
+form.addEventListener("submit", function(event) {
 
-const clearMenuBtn = document.getElementById("clearMenuBtn");
-
-const orderList = document.getElementById("orderList");
-
-const totalOrder = document.getElementById("totalOrder");
+    // Mencegah halaman refresh
+    event.preventDefault();
 
 
-    //2. DATA ARRAY OF OBJECT
-    const daftarMenu = [
-    { id:1, nama:"Caffe Late", harga:25000 },
-    { id:2, nama:"Cappucino", harga:28000 },
-    { id:3, nama:"Americano", harga:20000 },
-    { id:4, nama:"Matcha Latte", harga: 30000}
-    ];
+    //4. MENGAMBIL VALUE INPUT
 
-    let pesananSementara = [];
-    let daftarOrder = [];
+    const nama = inputNama.value.trim();
 
-    // 3. FUNCTION FORMAT RUPIAH
-    function formatRupiah(angka) {
-        return "Rp" + angka.toLocaleString("id-ID");
+    const pesan = inputPesan.value.trim();
+
+     // MENGAMBIL ELEMEN TOTAL ORDER
+    const totalOrder = document.getElementById("totalOrder");
+
+    // MENGAMBIL AREA LIST ORDER
+    const orderList = document.getElementById("orderList");
+
+    //5. VALIDASI INPUT
+
+    if (nama === "" || pesan === "") {
+        alert("Nama dan pesan harus diisi!");
+        return;
     }
 
-    function cariMenu(id){
-        return daftarMenu.find(function(m){ 
-            return m.id == id;
-        });
-    }
 
-    // 4. FUNCTION PENYIMAPANAN DATA(LOCAL STORAGE)
-    function simpanData(){
-        try {
-            localStorage.setItem("pesananSementara", JSON.stringify(pesananSementara));
-            localStorage.setItem("daftarOrder", JSON.stringify(daftarOrder));
-            } catch (e) {
-            console.error("Gagal Menyimpan data:", e);
-                        }
-            }
+    // 6. MEMBUAT ELEMEN HTML BARU
+    const listItem = document.createElement("li");
 
-    function muatData() {
-        try {
-            pesananSementara = JSON.parse(localStorage.getItem("pesananSementara")) || [];
-            daftarOrder = JSON.parse(localStorage.getItem("daftarOrder")) || [];
-            } catch (e) {
-            pesananSementara = [];
-            daftarOrder = [];
+    listItem.className = "col-md-6";
 
-            console.eror("Gagal memuat data:", e);
-            }
-            }
 
-    // 5. MENAMPILKAN PILIHAN MENU
-    function tampilkanMenu() {
-        daftarMenu.forEach(function (menu) {
-            const option = document.createElement("option");
-            option.value = menu.id;
-            option.textContent = menu.nama + " - " + formatRupiah(menu.harga);
-            menuSelect.appendChild(option);
-        });
-    }
+    // 7. MEMBUAT KARTU ORDER
 
-    // 6. MENAMPILKAN DAFTAR PESANAN SEMENTARA
-    function tampilkanPesananSementara() {
-        selectedMenuList.innerHTML = "";
-        let total = 0;
+    const card = document.createElement("div");
 
-        if (pesananSementara.length === 0) {
-            const kosong = document.createElement("li");
-            kosong.textContent = "Belum ada menu yang dipilih.";
-            selectedMenuList.appendChild(kosong);
-        }
+    card.className = "order-card";
 
-        pesananSementara.forEach(function (item) {
-            const menu = cariMenu(item.id);
-            const subtotal = menu.harga * item.jumlah;
-            total += subtotal;
 
-            const li = document.createElement("li");
-            li.className = "selected-item";
+    //8. MEMBUAT HEADER NAMA
+    const header = document.createElement("div");
 
-            const teks = document.createElement("span");
-            teks.textContent = menu.nama + " x" + item.jumlah + " - " + formatRupiah(subtotal);
+    header.className = "order-header";
 
-            const tombolHapus = document.createElement("button");
-            tombolHapus.type = "button";
-            tombolHapus.className = "btn btn-sm btn-danger btn-delete";
-            tombolHapus.textContent = "Delete";
-            tombolHapus.dataset.id = item.id;
 
-            li.appendChild(teks);
-            li.appendChild(tombolHapus);
-            selectedMenuList.appendChild(li);
-        });
+    // MEMBUAT ICON
+    const icon = document.createElement("i");
 
-        selectedTotal.textContent = formatRupiah(total);
-    }
+    icon.className = "bi bi-person-circle";
 
-    // 7. MENAMPILKAN SEMUA PESANAN DI ORDER LIST
-    function tampilkanOrder() {
-        orderList.innerHTML = "";
 
-        daftarOrder.forEach(function (order, index) {
-            const listItem = document.createElement("li");
-            listItem.className = "col-md-6";
+    // MEMBUAT NAMA
+    const nameElement = document.createElement("span");
 
-            const card = document.createElement("div");
-            card.className = "order-card";
+    nameElement.textContent = nama;
 
-            // Header: icon + nama + nomor antrian
-            const header = document.createElement("div");
-            header.className = "order-header";
+    // MEMASUKKAN ICON DAN NAMA
+    header.appendChild(icon);
 
-            const icon = document.createElement("i");
-            icon.className = "bi bi-person-circle";
+    header.appendChild(nameElement);
 
-            const nameElement = document.createElement("span");
-            nameElement.textContent = order.nama;
 
-            const queueBadge = document.createElement("span");
-            queueBadge.className = "queue-number";
-            queueBadge.textContent = String(index + 1).padStart(3, "0");
+    // 8. MEMBUAT ISI PESAN
+    const orderElement = document.createElement("p");
 
-        
-            header.appendChild(icon);
-            header.appendChild(nameElement);
-            header.appendChild(queueBadge);
+    orderElement.className = "order-text";
 
-            // Daftar menu yang dipesan
-            const itemList = document.createElement("ul");
-            itemList.className = "order-items";
-            order.items.forEach(function (item) {
-                const li = document.createElement("li");
-                li.textContent = item.nama + " x" + item.jumlah + " - " + formatRupiah(item.harga * item.jumlah);
-                itemList.appendChild(li);
-            });
+    orderElement.textContent = pesan;
 
-            // Total harga
-            const totalElement = document.createElement("p");
-            totalElement.className = "order-total";
-            totalElement.textContent = "Total: " + formatRupiah(order.total);
+   
+    //9. MEMBUAT NOMOR ANTRIAN
+    const nomor = String(nomorAntrian).padStart(3, "0");
 
-            // Tomnbol Hapus Order
-            const tombolHapusOrder = document.createElement("button");
-            tombolHapusOrder.type = "button";
-            tombolHapusOrder.className = "btn btn-sm btn-outline-danger mt-3 btn-delete-order";
-            tombolHapusOrder.textContent = "Hapus Order";
-            tombolHapusOrder.dataset.index = index;
+    // MEMBUAT BADGE NOMOR ANTRIAN
+    const queueBadge = document.createElement("span");
 
-            card.appendChild(header);
-            card.appendChild(itemList);
-            card.appendChild(totalElement);
-            card.appendChild(tombolHapusOrder);
-            listItem.appendChild(card);
-            orderList.appendChild(listItem);
-        });
+    queueBadge.className = "queue-number";
 
-        totalOrder.textContent = daftarOrder.length;
-    }
+    queueBadge.textContent = nomor;
 
-    // 8. TOMBOL TAMBAH
-    addMenuBtn.addEventListener("click", function () {
-        const menuId = Number(menuSelect.value);
+    // MEMASUKAN NOMOR ANTRIAN KE HEADER KARTU
+    header.appendChild(queueBadge);
 
-        if (!menuId) {
-            alert("Silakan pilih menu dulu!");
-            return;
-        }
+    //10. MENYUSUN KARTU ORDER
+    card.appendChild(header);
 
-        // Kalau menu sudah ada, tambah jumlahnya
-        const sudahAda = pesananSementara.find(function (item) {
-            return item.id === menuId;
-        });
+    card.appendChild(orderElement);
 
-        if (sudahAda) {
-            sudahAda.jumlah++;
-        } else {
-            pesananSementara.push({ id: menuId, jumlah: 1 });
-        }
+    listItem.appendChild(card);
 
-        menuSelect.value = "";
-        tampilkanPesananSementara();
-        simpanData();
-    });
+    //11. MENAMPILKAN PESAN KE HALAMAN
+    messageList.appendChild(listItem);
 
-    // 9. TOMBOL DELETE 
-    selectedMenuList.addEventListener("click", function (event) {
-        const tombol = event.target.closest(".btn-delete");
-        if (!tombol) return;
+    //12.UPDATE TOTAL PESANAN
+    totalOrder.textContent = orderList.children.length;
 
-        const id = Number(tombol.dataset.id);
-        pesananSementara = pesananSementara.filter(function (item) {
-            return item.id !== id;
-        });
+    //13. MENAMBAH NOMOR ANTRIAN
+    nomorAntrian++;
 
-        tampilkanPesananSementara();
-        simpanData();
-    });
+    //14. MENGOSONGKAN FORM
 
-    // 10. TOMBOL CLEAR ALL
-    clearMenuBtn.addEventListener("click", function () {
-        pesananSementara = [];
-        tampilkanPesananSementara();
-        simpanData();
-    });
+    form.reset();
 
-    // 10b. TOMBOL HAPUS PESANAN DI ORDER LIST
-    orderList.addEventListener("click", function (event) {
-        const tombol = event.target.closest(".btn-delete-order");
-        if (!tombol) return;
-
-        if (!confirm("Yakin ingin menghapus order ini?")) return;
-
-        const index = Number(tombol.dataset.index);
-        daftarOrder.splice(index, 1);
-        
-        tampilkanOrder();
-        simpanData();
-    });
-
-    // 11. SUBMIT ORDER
-    form.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        const nama = inputNama.value.trim();
-
-        if (nama === "") {
-            alert("Nama harus diisi!");
-            return;
-        }
-
-        if (pesananSementara.length === 0) {
-            alert("Pilih minimal satu menu!");
-            return;
-        }
-
-        // Susun data order
-        let total = 0;
-        const items = pesananSementara.map(function (item) {
-            const menu = cariMenu(item.id);
-            total += menu.harga * item.jumlah;
-            return { nama: menu.nama, harga: menu.harga, jumlah: item.jumlah };
-        });
-
-        daftarOrder.push({
-            nama: nama,
-            items: items,
-            total: total
-        });
-
-        pesananSementara = [];
-
-        form.reset();
-        tampilkanPesananSementara();
-        tampilkanOrder();
-        simpanData();
-    });
-
-// 12. JALANKAN SAAT HALAMAN DIBUKA
-muatData();
-tampilkanMenu();
-tampilkanPesananSementara();
-tampilkanOrder();
+});
