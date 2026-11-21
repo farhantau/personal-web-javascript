@@ -56,17 +56,37 @@
                                 >
                             </div>
                             <div class="mb-3">
-                                <label for="pesan" class="form-label">
-                                    Order
+                                <label for="menuSelect" class="form-label">
+                                    Pilih Menu
                                 </label>
-                                <textarea
-                                    class="form-control"
-                                    id="pesan"
-                                    rows="5"
-                                    placeholder="Write Customer Order"
-                                    required
-                                ></textarea>
+                                <div class="input-group">
+                                    <select class="form-select" id="menuSelect">
+                                        <option value="">-- Pilih Menu --</option>
+                                    </select>
+                                <button
+                                    type="button"
+                                    class="btn btn-outline-primary"
+                                    id="addMenuBtn">
+                                    Tambah
+                                </button>
+                                </div>
                             </div>
+                            <div class="mb-3">
+                                <h6>Daftar Pesanan</h6>
+                                <ul id="selectedMenuList" class="list-unstyled">
+                                    <li>Belum ada menu yang dipilih.</li>
+                                </ul>
+                                <div>
+                                    Total Harga :
+                                    <strong id="selectedTotal">Rp0</strong>
+                                </div>
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline-dark w-100 mb-2"
+                                id="clearMenuBtn">
+                                Clear All
+                            </button>
                             <button
                                 type="submit"
                                 class="btn btn-danger w-100">
